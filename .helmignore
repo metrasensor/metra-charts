@@ -1,0 +1,19 @@
+
+# Шаблоны, которые следует игнорировать при сборке пакетов. 
+# Только один шаблон в строке.
+
+.DS_Store
+# Common VCS dirs
+.git/
+.gitignore
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*~
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+.github/
