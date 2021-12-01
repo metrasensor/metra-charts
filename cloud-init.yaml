@@ -1,0 +1,19 @@
+#cloud-config
+
+users:
+  - name: neegor
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbGyRAbZTHExlWfTymSX+qpdL7XCElPryx4yuwgGDwcwoAHyJFpDOuMkvisouV4thCjXuuU3NeUuIIiYw5upCW+Le50IMY2/gBrdi0+Tpc/9VftbW2E7xrJN1kIwrfSIl0YzAy6lggb8ztrny+PdmzaxSeBHqOylpoD7lCf/XNPP6z1VomR9HAE6hxL+gysuhRj6dzaUdFJ7GjZktI+bdSvUL9tEjZsQAmm1nBsmjYxkm3XbU+6A38+GIOcOdY8g+7Ehu5R8+TJGaiapzzXGnZWWba2uTdDS2hZPXTIqVCVFxQXnyiz6oQ5w5k8VRxmMg11QkYFSLs4yuYF1HVQUH5 egor@egor-Aspire-5750G
+packages:
+  - ufw
+package_update: true
+package_upgrade: true
+runcmd:
+  - curl https://releases.rancher.com/install-docker/20.10.sh | sh
+  - ufw allow OpenSSH
+  - ufw default deny outgoing
+  - ufw default deny incoming
+  - ufw enable
