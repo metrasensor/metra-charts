@@ -1,1 +1,0 @@
-https://rancher.com/docs/rancher/v2.5/en/backups/back-up-rancher/
