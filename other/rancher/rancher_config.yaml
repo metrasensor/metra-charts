@@ -1,7 +1,6 @@
----
+# Необходимо добавить следующий текст в rancher_kubernetes_engine_config:
 
 rancher_kubernetes_engine_config:
-  ...
   addons: |-
     ---
     apiVersion: v1

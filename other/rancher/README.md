@@ -17,8 +17,9 @@ docker run -d --restart=unless-stopped \
 
 ## Upgrade
 
-* TODO
+* [Подробная инструкция по обновлению Rancher server](https://rancher.com/docs/rancher/v2.5/en/installation/other-installation-methods/single-node-docker/single-node-upgrades/)
+* [Подробная инструкция по обновлению версии Kubernetes](https://rancher.com/docs/rancher/v2.5/en/cluster-admin/upgrading-kubernetes/)
 
 ## Backup and Restore
 
-* TODO
+* [Подробная инструкция по Backup and Restore Rancher](https://rancher.com/docs/rancher/v2.5/en/backups/)
