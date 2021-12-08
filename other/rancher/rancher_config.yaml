@@ -1,0 +1,25 @@
+---
+
+rancher_kubernetes_engine_config:
+  ...
+  addons: |-
+    ---
+    apiVersion: v1
+    stringData:
+      token: XObYNRVdpbes0ZqTMsi54BN3p2C3KokIIFAcYzpPyJkVDk5UNBWGEq9Bnd2KvAQI
+      network: metra-network
+    kind: Secret
+    metadata:
+      name: hcloud
+      namespace: kube-system
+    ---
+    apiVersion: v1
+    stringData:
+      token: XObYNRVdpbes0ZqTMsi54BN3p2C3KokIIFAcYzpPyJkVDk5UNBWGEq9Bnd2KvAQI
+    kind: Secret
+    metadata:
+      name: hcloud-csi
+      namespace: kube-system
+  addons_include:
+    - https://raw.githubusercontent.com/hetznercloud/hcloud-cloud-controller-manager/master/deploy/ccm-networks.yaml
+    - https://raw.githubusercontent.com/hetznercloud/csi-driver/v1.6.0/deploy/kubernetes/hcloud-csi.yml
