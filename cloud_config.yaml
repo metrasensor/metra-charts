@@ -8,17 +8,26 @@ users:
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbGyRAbZTHExlWfTymSX+qpdL7XCElPryx4yuwgGDwcwoAHyJFpDOuMkvisouV4thCjXuuU3NeUuIIiYw5upCW+Le50IMY2/gBrdi0+Tpc/9VftbW2E7xrJN1kIwrfSIl0YzAy6lggb8ztrny+PdmzaxSeBHqOylpoD7lCf/XNPP6z1VomR9HAE6hxL+gysuhRj6dzaUdFJ7GjZktI+bdSvUL9tEjZsQAmm1nBsmjYxkm3XbU+6A38+GIOcOdY8g+7Ehu5R8+TJGaiapzzXGnZWWba2uTdDS2hZPXTIqVCVFxQXnyiz6oQ5w5k8VRxmMg11QkYFSLs4yuYF1HVQUH5 egor@egor-Aspire-5750G
 packages:
-  - docker.io
   - ufw
   - htop
   - mc
 package_update: true
 package_upgrade: true
 runcmd:
-  - ufw allow OpenSSH
-  - ufw allow http
-  - ufw allow https
   - ufw default allow outgoing
   - ufw default deny incoming
   - ufw allow from 10.0.0.0/8
+  - ufw allow 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw allow 179/tcp
+  - ufw allow 4789/tcp
+  - ufw allow 5473/tcp
+  - ufw allow 6443/tcp
+  - ufw allow 2379/tcp
+  - ufw allow 4149/tcp
+  - ufw allow 10250/tcp
+  - ufw allow 10255/tcp
+  - ufw allow 10256/tcp
+  - ufw allow 9099/tcp
   - ufw enable
