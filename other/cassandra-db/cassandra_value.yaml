@@ -1,0 +1,40 @@
+cassandra:
+  version: "3.11.10"
+  cassandraLibDirVolume:
+    storageClass: local-path
+    size: 5Gi
+  allowMultipleNodesPerWorker: true
+  heap:
+    size: 1G
+    newGenSize: 1G
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+  datacenters:
+    - name: dc1
+      size: 1
+      racks:
+        - name: default
+kube-prometheus-stack:
+  # https://rancher.com/docs/rancher/v2.0-v2.4/en/cluster-admin/tools/cluster-monitoring/viewing-metrics/
+  grafana:
+    adminUser: admin
+    adminPassword: admin
+stargate:
+  enabled: true
+  replicas: 1
+  heapMB: 256
+  cpuReqMillicores: 200
+  cpuLimMillicores: 1000
+
+
+ADMSettings:
+  ADMIP: null
+  bandWidth: null
+  bandWidthLicense: false
+  licenseServerIP: null
+  licenseServerPort: 27000

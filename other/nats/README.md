@@ -1,5 +1,7 @@
-# metra-helm
+# Nats
 
 ```
-https://medium.com/hackernoon/using-a-private-github-repo-as-helm-chart-repo-https-access-95629b2af27c
+helm repo add nats https://nats-io.github.io/k8s/helm/charts/
 ```
+
+* [Подробная инструкция по Nats](https://docs.nats.io/running-a-nats-service/introduction/running/nats-kubernetes/helm-charts)

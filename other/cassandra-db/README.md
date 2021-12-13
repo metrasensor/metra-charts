@@ -1,5 +1,7 @@
-# metra-helm
+# Cassandra Cluster
 
 ```
-https://medium.com/hackernoon/using-a-private-github-repo-as-helm-chart-repo-https-access-95629b2af27c
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
 ```
+
+* [Инструкция по локальной установке](https://docs.k8ssandra.io/install/local/)
