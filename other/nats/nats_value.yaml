@@ -1,0 +1,3 @@
+nats:
+  image: nats:2.6.5-alpine
+  pullPolicy: IfNotPresent
