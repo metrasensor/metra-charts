@@ -1,3 +1,134 @@
-nats:
-  image: nats:2.6.5-alpine
+affinity: {}
+appProtocol:
+  enabled: false
+auth:
+  enabled: false
+  resolver:
+    allowDelete: false
+    interval: 2m
+    operator: null
+    store:
+      dir: /accounts/jwt
+      size: 1Gi
+    systemAccount: null
+    type: none
+bootconfig:
+  image: natsio/nats-boot-config:0.5.4
   pullPolicy: IfNotPresent
+  securityContext: {}
+cluster:
+  enabled: true
+  extraRoutes: []
+  noAdvertise: false
+  replicas: 3
+commonLabels: {}
+exporter:
+  enabled: true
+  image: natsio/prometheus-nats-exporter:0.9.0
+  pullPolicy: IfNotPresent
+  resources: {}
+  securityContext: {}
+  serviceMonitor:
+    annotations: {}
+    enabled: false
+    labels: {}
+    path: /metrics
+gateway:
+  enabled: false
+  name: default
+imagePullSecrets: []
+k8sClusterDomain: cluster.local
+leafnodes:
+  enabled: false
+  noAdvertise: false
+mqtt:
+  ackWait: 1m
+  enabled: false
+  maxAckPending: 100
+nameOverride: ''
+nats:
+  advertise: true
+  connectRetries: 120
+  externalAccess: false
+  image: nats:2.6.5-alpine
+  jetstream:
+    domain: null
+    enabled: false
+    encryption: null
+    fileStorage:
+      accessModes:
+        - ReadWriteOnce
+      annotations: null
+      enabled: false
+      size: 1Gi
+      storageDirectory: /data
+    memStorage:
+      enabled: true
+      size: 1Gi
+  limits:
+    lameDuckDuration: 120s
+    maxConnections: null
+    maxControlLine: null
+    maxPayload: null
+    maxPending: null
+    maxPings: null
+    maxSubscriptions: null
+    pingInterval: null
+    writeDeadline: null
+  logging:
+    connectErrorReports: null
+    debug: null
+    logtime: null
+    reconnectErrorReports: null
+    trace: null
+  profiling:
+    enabled: false
+    port: 6000
+  pullPolicy: IfNotPresent
+  resources: {}
+  securityContext: {}
+  selectorLabels: {}
+  serverNamePrefix: ''
+  serviceAccount: nats-server
+  terminationGracePeriodSeconds: 120
+natsbox:
+  additionalLabels: {}
+  affinity: {}
+  enabled: true
+  image: natsio/nats-box:0.7.0
+  imagePullSecrets: []
+  nodeSelector: {}
+  podAnnotations: {}
+  podLabels: {}
+  pullPolicy: IfNotPresent
+  securityContext: {}
+  tolerations: []
+networkPolicy:
+  allowExternal: true
+  enabled: false
+  extraEgress: []
+  extraIngress: []
+  ingressNSMatchLabels: {}
+  ingressNSPodMatchLabels: {}
+nodeSelector: {}
+podAnnotations: {}
+podDisruptionBudget: null
+priorityClassName: null
+reloader:
+  enabled: true
+  image: natsio/nats-server-config-reloader:0.6.2
+  pullPolicy: IfNotPresent
+  securityContext: {}
+securityContext: {}
+serviceAnnotations: {}
+statefulSetAnnotations: {}
+statefulSetPodLabels: {}
+tolerations: []
+topologyKeys: []
+topologySpreadConstraints: []
+websocket:
+  allowedOrigins: []
+  enabled: false
+  noTLS: true
+  port: 443
+  sameOrigin: false
