@@ -45,7 +45,7 @@ mqtt:
   ackWait: 1m
   enabled: false
   maxAckPending: 100
-nameOverride: ''
+nameOverride: ""
 nats:
   advertise: true
   connectRetries: 120
@@ -88,7 +88,7 @@ nats:
   resources: {}
   securityContext: {}
   selectorLabels: {}
-  serverNamePrefix: ''
+  serverNamePrefix: ""
   serviceAccount: nats-server
   terminationGracePeriodSeconds: 120
 natsbox:
