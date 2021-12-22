@@ -211,7 +211,7 @@ monitoring:
     namespace: null
 reaper:
   affinity: {}
-  autoschedule: false
+  autoschedule: true
   autoschedule_properties: {}
   cassandraUser:
     secret: ''
