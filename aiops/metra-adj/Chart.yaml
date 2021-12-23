@@ -1,0 +1,17 @@
+apiVersion: v2
+name: metra-adj
+description: A Helm chart for Django[aiops]
+type: application
+version: 1.0.0
+kubeVersion: v1.21.6
+
+keywords:
+  - aiops
+  - django
+
+sources:
+  - https://github.com/metrasensor/metra-core
+
+maintainers:
+  - name: Gorshal Igor
+    email: gorschal@gmail.com
