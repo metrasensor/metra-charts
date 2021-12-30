@@ -23,3 +23,4 @@ docker run -d --restart=unless-stopped \
 ## Backup and Restore
 
 * [Подробная инструкция по Backup and Restore Rancher](https://rancher.com/docs/rancher/v2.5/en/backups/)
+

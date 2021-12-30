@@ -1,0 +1,5 @@
+---
+
+chart-dirs:
+  - metra-registry-secret
+validate-maintainers: false
