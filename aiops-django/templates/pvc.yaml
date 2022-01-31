@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  name: {{ include "aiops-django.fullname" . }}-staticdata
+  labels:
+    {{- include "aiops-django.labels" . | nindent 4 }}
+spec:
+  storageClassName: longhorn
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+# DONE

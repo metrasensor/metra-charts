@@ -1,0 +1,66 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "aiops-django.fullname" . }}-migrate
+  labels:
+    {{- include "aiops-django.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: {{ include "aiops-django.fullname" . }}-migrate
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - "python3"
+            - "manage.py"
+            - "migrate"
+            - "--noinput"
+      restartPolicy: Never
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "aiops-django.fullname" . }}-collectstatic
+  labels:
+    {{- include "aiops-django.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    metadata:
+      name: {{ include "aiops-django.fullname" . }}-collectstatic
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - "python3"
+            - "manage.py"
+            - "collectstatic"
+            - "--noinput"
+          volumeMounts:
+            - mountPath: /home/app/static
+              name: {{ include "aiops-django.fullname" . }}-staticdata
+      restartPolicy: Never
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "aiops-django.fullname" . }}-staticdata
+          persistentVolumeClaim:
+            claimName: {{ include "aiops-django.fullname" . }}-staticdata

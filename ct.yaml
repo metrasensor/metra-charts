@@ -1,4 +1,4 @@
 ---
 chart-dirs:
-  - metra-registry-secret
+  - aiops-django
 validate-maintainers: false
