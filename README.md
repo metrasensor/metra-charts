@@ -1,20 +1,19 @@
 # metra-helm
+[![Chart Lint](https://github.com/metrasensor/metra-charts/actions/workflows/testing.yaml/badge.svg)](https://github.com/metrasensor/metra-charts/actions/workflows/testing.yaml)
 
+## Добавление репозитория
+```bash
+helm repo add metra-registry \
+'https://$GH_SECRET@raw.githubusercontent.com/metrasensor/metra-charts/master/charts'
 ```
-https://medium.com/hackernoon/using-a-private-github-repo-as-helm-chart-repo-https-access-95629b2af27c
-
-https://habr.com/ru/company/vk/blog/516934/
-
-helm repo add metra-registry 
-'https://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@raw.githubusercontent.com/metrasensor/metra-helm/master/charts'
-
-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
-
-https://github.com/metrasensor/metra-helm.git
+## Создание чарта
+```bash
+helm create $CHART_NAME
 ```
-Публикация пакетов
-```
-$ helm package my-app
-$ mv my-app-0.1.0.tgz charts
+
+## Публикация пакетов
+```bash
+$ helm package metra-app
+$ mv metra-app-0.1.0.tgz charts
 $ helm repo index charts/ --url raw.githubusercontent.com/metrasensor/metra-charts/master/charts
 ```

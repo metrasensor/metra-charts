@@ -1,15 +1,17 @@
-name: Chart Lint
+name: Linter of Helm charts
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
-  lint:
-    name: Lint
+  chart-linter:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Fetch history
