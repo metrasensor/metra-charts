@@ -1,0 +1,19 @@
+apiVersion: v2
+name: aiops-predictor
+description: Helm chart for aiops-predictor
+type: application
+version: 1.0.0
+icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+
+keywords:
+  - aiops
+  - predictor
+  - aiops-predictor
+  - metra-aiops-predictor
+
+sources:
+  - https://github.com/metrasensor/metra-aiops
+
+maintainers:
+  - name: Gorshal Igor
+    email: gorschal@gmail.com

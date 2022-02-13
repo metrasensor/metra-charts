@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   aiops-cassandra:
   - apiVersion: v2
-    created: "2022-02-13T17:46:35.9371466+03:00"
+    created: "2022-02-13T18:14:22.966354+03:00"
     description: Helm chart for Cassandra aiops migration
     digest: b7e590dcf87633e6057ca55f3f865ccc37aa5f7fa79f16d00b659191e6e724e8
     icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
@@ -26,7 +26,7 @@ entries:
     version: 1.0.0
   aiops-django:
   - apiVersion: v2
-    created: "2022-02-13T17:46:35.9385386+03:00"
+    created: "2022-02-13T18:14:22.9668909+03:00"
     description: A Helm chart for AIOps Django
     digest: 009ead685923eaddb1a4b5cab26ce4cbdb3eed5866c46d8e1318bfa588913f38
     icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
@@ -45,4 +45,25 @@ entries:
     urls:
     - raw.githubusercontent.com/metrasensor/metra-charts/master/charts/aiops-django-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-13T17:46:35.932211+03:00"
+  aiops-predictor:
+  - apiVersion: v2
+    created: "2022-02-13T18:14:22.969111+03:00"
+    description: Helm chart for aiops-predictor
+    digest: e0dec9ac2deed9b8b8f8698aac975bfef7c432a0f92f56f806bad552f3cd5315
+    icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+    keywords:
+    - aiops
+    - predictor
+    - aiops-predictor
+    - metra-aiops-predictor
+    maintainers:
+    - email: gorschal@gmail.com
+      name: Gorshal Igor
+    name: aiops-predictor
+    sources:
+    - https://github.com/metrasensor/metra-aiops
+    type: application
+    urls:
+    - raw.githubusercontent.com/metrasensor/metra-charts/master/charts/aiops-predictor-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-02-13T18:14:22.9658431+03:00"
