@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  chart-linter:
+  helm-linter-check:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,3 +22,6 @@ jobs:
         with:
           command: lint
           config: ct.yaml
+
+# kubeval https://github.com/marketplace/actions/setup-kubeval
+# kube-score https://github.com/marketplace/actions/kube-score-check

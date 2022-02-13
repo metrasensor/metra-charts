@@ -3,8 +3,7 @@ name: aiops-django
 description: A Helm chart for AIOps Django
 type: application
 version: 1.0.0
-kubeVersion: ~1.21.6
-icon: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
 
 keywords:
   - aiops
@@ -13,9 +12,8 @@ keywords:
   - metra-aiops-django
 
 sources:
-  - https://github.com/metrasensor/metra-aiops-django
+  - https://github.com/metrasensor/aiops-django
 
 maintainers:
   - name: Gorshal Igor
     email: gorschal@gmail.com
- 

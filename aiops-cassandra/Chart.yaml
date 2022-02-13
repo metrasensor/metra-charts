@@ -1,0 +1,22 @@
+apiVersion: v2
+name: aiops-cassandra
+description: Helm chart for Cassandra aiops migration
+type: application
+version: 1.0.0
+icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+
+keywords:
+  - aiops
+  - cassandra
+  - cassandra-migrate
+  - aiops-cassandra
+  - aiops-cassandra-migrate
+  - metra-aiops-cassandra
+  - aiops-cassandra-migrate-migrate
+
+sources:
+  - https://github.com/metrasensor/metra-aiops
+
+maintainers:
+  - name: Gorshal Igor
+    email: gorschal@gmail.com
