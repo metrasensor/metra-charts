@@ -1,25 +1,48 @@
 apiVersion: v1
 entries:
+  aiops-cassandra:
+  - apiVersion: v2
+    created: "2022-02-13T17:46:35.9371466+03:00"
+    description: Helm chart for Cassandra aiops migration
+    digest: b7e590dcf87633e6057ca55f3f865ccc37aa5f7fa79f16d00b659191e6e724e8
+    icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+    keywords:
+    - aiops
+    - cassandra
+    - cassandra-migrate
+    - aiops-cassandra
+    - aiops-cassandra-migrate
+    - metra-aiops-cassandra
+    - aiops-cassandra-migrate-migrate
+    maintainers:
+    - email: gorschal@gmail.com
+      name: Gorshal Igor
+    name: aiops-cassandra
+    sources:
+    - https://github.com/metrasensor/metra-aiops
+    type: application
+    urls:
+    - raw.githubusercontent.com/metrasensor/metra-charts/master/charts/aiops-cassandra-1.0.0.tgz
+    version: 1.0.0
   aiops-django:
   - apiVersion: v2
-    created: "2022-01-31T12:25:44.7075455+03:00"
+    created: "2022-02-13T17:46:35.9385386+03:00"
     description: A Helm chart for AIOps Django
-    digest: da39e86bb121575cd68dd90c7886758ee6244c9910fb2a4a0b8d5cde1cdae426
-    icon: https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png
+    digest: 009ead685923eaddb1a4b5cab26ce4cbdb3eed5866c46d8e1318bfa588913f38
+    icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
     keywords:
     - aiops
     - django
     - aiops-django
     - metra-aiops-django
-    kubeVersion: ~1.21.6
     maintainers:
     - email: gorschal@gmail.com
       name: Gorshal Igor
     name: aiops-django
     sources:
-    - https://github.com/metrasensor/metra-aiops-django
+    - https://github.com/metrasensor/aiops-django
     type: application
     urls:
     - raw.githubusercontent.com/metrasensor/metra-charts/master/charts/aiops-django-1.0.0.tgz
     version: 1.0.0
-generated: "2022-01-31T12:25:44.7053747+03:00"
+generated: "2022-02-13T17:46:35.932211+03:00"

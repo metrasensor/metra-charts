@@ -1,4 +1,5 @@
 ---
 chart-dirs:
   - aiops-django
+  - aiops-cassandra
 validate-maintainers: false
