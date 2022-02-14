@@ -18,8 +18,11 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           command:
-            - "python"
-            - "cassandra_db.py"
+            - python
+            - cassandra_db.py
+          envFrom:
+          - configMapRef:
+              name: {{ include "aiops-cassandra.fullname" . }}
       restartPolicy: Never
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

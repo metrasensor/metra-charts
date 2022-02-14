@@ -5,9 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/metrasensor/metra-aiops-django
+  repository: ghcr.io/metrasensor/aiops-django
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: major-latest
 
 imagePullSecrets: metra-registry-secret
@@ -15,12 +14,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
   name: ""
 
 podAnnotations: {}
@@ -28,7 +23,6 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-#https://habr.com/ru/post/549076/
 securityContext: {}
   # capabilities:
   #   drop:

@@ -32,9 +32,12 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          args:
+          command:
             - python
             - receiver.py
+          envFrom:
+          - configMapRef:
+              name: {{ include "aiops-receiver.fullname" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: aiops-receiver
@@ -65,5 +68,5 @@ spec:
     rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   progressDeadlineSeconds: 600

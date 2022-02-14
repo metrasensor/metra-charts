@@ -33,7 +33,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          args:
+          command:
             - gunicorn
             - --worker-class
             - gevent
@@ -86,5 +86,5 @@ spec:
     rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   progressDeadlineSeconds: 600

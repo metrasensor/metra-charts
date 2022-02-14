@@ -1,5 +1,9 @@
 ---
 chart-dirs:
-  - aiops-django
+  - aiops-alerts
   - aiops-cassandra
+  - aiops-django
+  - aiops-predictor
+  - aiops-receiver
+  - aiops-webhooks
 validate-maintainers: false
