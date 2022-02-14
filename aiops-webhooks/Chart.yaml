@@ -1,0 +1,19 @@
+apiVersion: v2
+name: aiops-webhooks
+description: Helm chart for aiops-webhooks
+type: application
+version: 1.0.0
+icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+
+keywords:
+  - aiops
+  - webhooks
+  - aiops-webhooks
+  - metra-aiops-webhooks
+
+sources:
+  - https://github.com/metrasensor/metra-aiops
+
+maintainers:
+  - name: Gorshal Igor
+    email: gorschal@gmail.com
