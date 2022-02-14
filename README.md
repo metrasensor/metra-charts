@@ -20,5 +20,5 @@ helm create $CHART_NAME
 ```bash
 $ helm package metra-app
 $ mv metra-app-0.1.0.tgz charts
-$ helm repo index charts/ --url raw.githubusercontent.com/metrasensor/metra-charts/master/charts
+$ helm repo index charts/ --url raw.githubusercontent.com/metrasensor/metra-charts/master/charts --merge index.yaml
 ```

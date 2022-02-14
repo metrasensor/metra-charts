@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "aiops-receiver.fullname" . }}
+  labels:
+    {{- include "aiops-receiver.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: UDP
+      name: aiops-receiver-port
+  selector:
+    {{- include "aiops-receiver.selectorLabels" . | nindent 4 }}

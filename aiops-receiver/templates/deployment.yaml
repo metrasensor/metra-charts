@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "aiops-predictor.fullname" . }}
+  name: {{ include "aiops-receiver.fullname" . }}
   labels:
-    {{- include "aiops-predictor.labels" . | nindent 4 }}
+    {{- include "aiops-receiver.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "aiops-predictor.selectorLabels" . | nindent 6 }}
+      {{- include "aiops-receiver.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "aiops-predictor.selectorLabels" . | nindent 8 }}
+        {{- include "aiops-receiver.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "aiops-predictor.serviceAccountName" . }}
+      serviceAccountName: {{ include "aiops-receiver.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -34,11 +34,17 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           args:
             - python
-            - predictor.py
-          envFrom:
-          - configMapRef:
-              name: {{ include "aiops-predictor.fullname" . }}
+            - receiver.py
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: aiops-receiver
+              containerPort: 8094
+              protocol: UDP
+          livenessProbe:
+            tcpSocket:
+              port: 8094
+            initialDelaySeconds: 15
+            periodSeconds: 20
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
@@ -59,5 +65,5 @@ spec:
     rollingUpdate:
       maxUnavailable: 25%
       maxSurge: 25%
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 10
   progressDeadlineSeconds: 600
