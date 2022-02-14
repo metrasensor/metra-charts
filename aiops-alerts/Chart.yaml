@@ -1,0 +1,19 @@
+apiVersion: v2
+name: aiops-alerts
+description: Helm chart for aiops-alerts
+type: application
+version: 1.0.0
+icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+
+keywords:
+  - aiops
+  - alerts
+  - aiops-alerts
+  - metra-aiops-alerts
+
+sources:
+  - https://github.com/metrasensor/metra-aiops
+
+maintainers:
+  - name: Gorshal Igor
+    email: gorschal@gmail.com
