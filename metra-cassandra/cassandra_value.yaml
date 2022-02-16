@@ -13,7 +13,7 @@ cassandra:
   auth:
     cacheUpdateIntervalMillis: 3600000
     cacheValidityPeriodMillis: 3600000
-    enabled: true
+    enabled: false
     superuser:
       secret: ''
       username: ''
@@ -43,7 +43,7 @@ cassandra:
       racks:
         - affinityLabels: {}
           name: default
-      size: 2
+      size: 3
   enabled: true
   encryption:
     keystoreMountPath: null
@@ -167,7 +167,7 @@ kube-prometheus-stack:
   nodeExporter:
     enabled: false
   prometheus:
-    enabled: true
+    enabled: false
     ingress:
       enabled: false
       paths: []
@@ -180,7 +180,7 @@ kube-prometheus-stack:
     enabled: false
     namespaces:
       additional: []
-      releaseNamespace: true
+      releaseNamespace: false
     serviceMonitor:
       selfMonitor: false
 medusa:
@@ -204,9 +204,9 @@ medusa:
   storage_properties: {}
 monitoring:
   grafana:
-    provision_dashboards: true
+    provision_dashboards: false
   prometheus:
-    provision_service_monitors: true
+    provision_service_monitors: false
   serviceMonitors:
     namespace: null
 reaper:
