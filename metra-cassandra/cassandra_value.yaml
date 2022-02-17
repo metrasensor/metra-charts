@@ -283,3 +283,7 @@ stargate:
       registry: docker.io
       repository: alpine
       tag: 3.12.2
+
+
+# cpu: 1000m
+# memory: 2Gi
