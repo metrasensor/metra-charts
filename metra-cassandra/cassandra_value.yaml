@@ -1,289 +1,204 @@
-cass-operator:
+affinity: {}
+args: []
+cluster:
+  clientEncryption: false
+  datacenter: dc1
+  enableUDF: false
+  endpointSnitch: SimpleSnitch
+  extraSeeds: []
+  internodeEncryption: none
+  name: cassandra
+  numTokens: 256
+  rack: rack1
+  seedCount: 1
+clusterDomain: cluster.local
+command: []
+commonAnnotations: {}
+commonLabels: {}
+containerPorts:
+  cql: 9042
+  intra: 7000
+  jmx: 7199
+  tls: 7001
+containerSecurityContext:
   enabled: true
-cassandra:
-  additionalSeeds: []
-  additionalServiceConfig: {}
-  allowMultipleNodesPerWorker: false
-  applyCustomConfig:
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: mikefarah/yq
-      tag: 4.14.1
-  auth:
-    cacheUpdateIntervalMillis: 3600000
-    cacheValidityPeriodMillis: 3600000
-    enabled: false
-    superuser:
-      secret: ''
-      username: ''
-  baseConfig:
-    securityContext: {}
-  cassandraLibDirVolume:
-    size: 20Gi
-    storageClass: longhorn
-  cassandraYamlConfigMap: null
-  clusterName: metra-cluster
-  configBuilder:
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: datastax/cass-config-builder
-      tag: 1.0.4
-    securityContext: {}
-  datacenters:
-    - audit_logging: {}
-      client_backpressure: {}
-      fql: {}
-      gc:
-        cms: {}
-        g1: {}
-      heap: {}
-      name: dc1
-      racks:
-        - affinityLabels: {}
-          name: default
-      size: 3
+  runAsNonRoot: true
+  runAsUser: 1001
+customLivenessProbe: {}
+customReadinessProbe: {}
+customStartupProbe: {}
+dbUser:
+  existingSecret: ''
+  forcePassword: false
+  password: ''
+  user: cassandra
+diagnosticMode:
+  args:
+    - infinity
+  command:
+    - sleep
+  enabled: false
+existingConfiguration: ''
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ''
+global:
+  imagePullSecrets: []
+  imageRegistry: ''
+  storageClass: ''
+hostAliases: []
+hostNetwork: false
+image:
+  debug: false
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/cassandra
+  tag: 4.0.3-debian-10-r0
+initContainers: []
+initDBConfigMap: ''
+initDBSecret: ''
+jvm:
+  extraOpts: ''
+  maxHeapSize: ''
+  newHeapSize: ''
+kubeVersion: ''
+lifecycleHooks: {}
+livenessProbe:
   enabled: true
-  encryption:
-    keystoreMountPath: null
-    keystoreSecret: null
-    truststoreMountPath: null
-    truststoreSecret: null
-  gc:
-    cms: {}
-    g1: {}
-  heap:
-    size: 1G
-    newGenSize: 1G
-  image: {}
-  ingress:
-    enabled: false
-    host: null
-    method: traefik
-    traefik:
-      entrypoint: cassandra
-  jmxCredentialsConfig:
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: busybox
-      tag: 1.33.1
-    securityContext: {}
-  loggingSidecar:
-    enabled: true
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: k8ssandra/system-logger
-      tag: 6c64f9c4
-  metric_filters:
-    - deny:org.apache.cassandra.metrics.Table
-    - deny:org.apache.cassandra.metrics.table
-    - allow:org.apache.cassandra.metrics.table.live_ss_table_count
-    - allow:org.apache.cassandra.metrics.Table.LiveSSTableCount
-    - allow:org.apache.cassandra.metrics.table.live_disk_space_used
-    - allow:org.apache.cassandra.metrics.table.LiveDiskSpaceUsed
-    - allow:org.apache.cassandra.metrics.Table.Pending
-    - allow:org.apache.cassandra.metrics.Table.Memtable
-    - allow:org.apache.cassandra.metrics.Table.Compaction
-    - allow:org.apache.cassandra.metrics.table.read
-    - allow:org.apache.cassandra.metrics.table.write
-    - allow:org.apache.cassandra.metrics.table.range
-    - allow:org.apache.cassandra.metrics.table.coordinator
-    - allow:org.apache.cassandra.metrics.table.dropped_mutations
+  failureThreshold: 5
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  successThreshold: 1
+  timeoutSeconds: 5
+metrics:
+  containerPorts:
+    http: 8080
+    jmx: 5555
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/cassandra-exporter
+    tag: 2.3.7-debian-10-r15
+  podAnnotations:
+    prometheus.io/port: '8080'
+    prometheus.io/scrape: 'true'
   resources:
-    requests:
-      cpu: 1000m
-      memory: 2Gi
-    limits:
-      cpu: 1000m
-      memory: 2Gi
-  securityContext: {}
-  tolerations: []
-  version: 4.0.1
-  versionImageMap:
-    3.11.10: k8ssandra/cass-management-api:3.11.10-v0.1.27
-    3.11.11: k8ssandra/cass-management-api:3.11.11-v0.1.33
-    3.11.7: k8ssandra/cass-management-api:3.11.7-v0.1.33
-    3.11.8: k8ssandra/cass-management-api:3.11.8-v0.1.33
-    3.11.9: k8ssandra/cass-management-api:3.11.9-v0.1.27
-    4.0.0: k8ssandra/cass-management-api:4.0.0-v0.1.33
-    4.0.1: k8ssandra/cass-management-api:4.0.1-v0.1.33
-cleaner:
-  image:
-    pullPolicy: IfNotPresent
-    registry: docker.io
-    repository: k8ssandra/k8ssandra-tools
-    tag: latest
-client:
-  image:
-    pullPolicy: IfNotPresent
-    registry: docker.io
-    repository: k8ssandra/k8ssandra-tools
-    tag: latest
-kube-prometheus-stack:
-  alertmanager:
+    limits: {}
+    requests: {}
+  serviceMonitor:
+    additionalLabels: {}
     enabled: false
-    serviceMonitor:
-      selfMonitor: false
-  coreDns:
-    enabled: false
+    honorLabels: false
+    interval: ''
+    jobLabel: ''
+    metricRelabelings: []
+    namespace: monitoring
+    scrapeTimeout: ''
+    selector: {}
+nameOverride: ''
+networkPolicy:
+  allowExternal: true
+  enabled: false
+nodeAffinityPreset:
+  key: ''
+  type: ''
+  values: []
+nodeSelector: {}
+pdb:
+  create: false
+  maxUnavailable: ''
+  minAvailable: 1
+persistence:
+  accessModes:
+    - ReadWriteOnce
+  annotations: {}
+  commitStorageClass: ''
   enabled: true
-  grafana:
-    adminPassword: admin
-    adminUser: admin
-    defaultDashboardsEnabled: false
-    enabled: false
-    grafana.ini: {}
-    image:
-      pullPolicy: IfNotPresent
-      repository: grafana/grafana
-      sha: ''
-      tag: 7.5.11
-    ingress:
-      enabled: false
-      path: null
-    plugins:
-      - grafana-polystat-panel
-    serviceMonitor:
-      selfMonitor: false
-  kubeApiServer:
-    enabled: false
-  kubeControllerManager:
-    enabled: false
-  kubeDns:
-    enabled: false
-  kubeEtcd:
-    enabled: false
-  kubeProxy:
-    enabled: false
-  kubeScheduler:
-    enabled: false
-  kubeStateMetrics:
-    enabled: false
-  kubelet:
-    enabled: false
-  nodeExporter:
-    enabled: false
-  prometheus:
-    enabled: false
-    ingress:
-      enabled: false
-      paths: []
-    prometheusSpec:
-      externalUrl: ''
-      routePrefix: /
-    serviceMonitor:
-      selfMonitor: false
-  prometheusOperator:
-    enabled: false
-    namespaces:
-      additional: []
-      releaseNamespace: false
-    serviceMonitor:
-      selfMonitor: false
-medusa:
-  bucketName: awstest
-  cassandraUser:
-    secret: ''
-    username: ''
+  mountPath: /bitnami/cassandra
+  size: 20Gi
+  storageClass: longhorn
+podAffinityPreset: ''
+podAnnotations: {}
+podAntiAffinityPreset: soft
+podLabels: {}
+podManagementPolicy: OrderedReady
+podSecurityContext:
+  enabled: true
+  fsGroup: 1001
+priorityClassName: ''
+readinessProbe:
+  enabled: true
+  failureThreshold: 5
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+replicaCount: 3
+resources:
+  limits: {}
+  requests: {}
+schedulerName: ''
+service:
+  annotations: {}
+  clusterIP: ''
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  loadBalancerIP: ''
+  loadBalancerSourceRanges: []
+  nodePorts:
+    cql: ''
+    metrics: ''
+  ports:
+    cql: 9042
+    metrics: 8080
+  type: ClusterIP
+serviceAccount:
+  annotations: {}
+  automountServiceAccountToken: true
+  create: true
+  name: ''
+sidecars: []
+startupProbe:
+  enabled: false
+  failureThreshold: 60
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+tls:
+  autoGenerated: false
+  certificatesSecret: ''
+  clientEncryption: false
+  existingSecret: ''
+  internodeEncryption: none
+  keystorePassword: ''
+  passwordsSecret: ''
+  resources:
+    limits: {}
+    requests: {}
+  tlsEncryptionSecretName: ''
+  truststorePassword: ''
+tolerations: []
+topologySpreadConstraints: []
+updateStrategy:
+  type: RollingUpdate
+volumePermissions:
   enabled: false
   image:
     pullPolicy: IfNotPresent
+    pullSecrets: []
     registry: docker.io
-    repository: k8ssandra/medusa
-    tag: 0.11.3
-  multiTenant: false
-  podStorage: {}
-  restoreInitContainerConfig:
-    securityContext: {}
-  securityContext: {}
-  storage: s3
-  storageSecret: medusa-bucket-key
-  storage_properties: {}
-monitoring:
-  grafana:
-    provision_dashboards: false
-  prometheus:
-    provision_service_monitors: false
-  serviceMonitors:
-    namespace: null
-reaper:
-  affinity: {}
-  autoschedule: true
-  autoschedule_properties: {}
-  cassandraUser:
-    secret: ''
-    username: ''
-  configInitContainerConfig:
-    securityContext: {}
-  enabled: true
-  image:
-    pullPolicy: IfNotPresent
-    registry: docker.io
-    repository: thelastpickle/cassandra-reaper
-    tag: 3.0.0
-  ingress:
-    enabled: false
-    host: null
-    method: traefik
-    traefik:
-      entrypoint: web
-  jmx:
-    secret: ''
-    username: ''
-  podSecurityContext: {}
-  schemaInitContainerConfig:
-    securityContext: {}
-  securityContext: {}
-  tolerations: []
-reaper-operator:
-  enabled: true
-stargate:
-  affinity: {}
-  cassandraUser:
-    secret: ''
-    username: ''
-  cassandraYamlConfigMap: null
-  cpuLimMillicores: 1000
-  cpuReqMillicores: 200
-  enabled: false
-  heapMB: 256
-  image: {}
-  ingress:
-    auth:
-      enabled: true
-      host: null
-    cassandra:
-      enabled: true
-      host: null
-      method: traefik
-      traefik:
-        entrypoint: cassandra
-    enabled: false
-    graphql:
-      enabled: true
-      host: null
-      playground:
-        enabled: true
-    host: null
-    rest:
-      enabled: false
-      host: null
-  javaOpts: null
-  livenessInitialDelaySeconds: 30
-  readinessInitialDelaySeconds: 30
-  replicas: 1
-  tolerations: []
-  version: 1.0.40
-  waitForCassandra:
-    image:
-      pullPolicy: IfNotPresent
-      registry: docker.io
-      repository: alpine
-      tag: 3.12.2
-
-
-# cpu: 1000m
-# memory: 2Gi
+    repository: bitnami/bitnami-shell
+    tag: 10-debian-10-r341
+  resources:
+    limits: {}
+    requests: {}
+  securityContext:
+    runAsUser: 0

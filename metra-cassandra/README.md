@@ -1,7 +1,8 @@
 # Cassandra Cluster
 
 ```
-helm repo add k8ssandra https://helm.k8ssandra.io/stable
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install my-release bitnami/cassandra
 ```
 
-* [Инструкция по локальной установке](https://docs.k8ssandra.io/install/local/)
+* [Инструкция по локальной установке](https://artifacthub.io/packages/helm/bitnami/cassandra)
