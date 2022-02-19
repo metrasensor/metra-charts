@@ -1,134 +1,306 @@
 affinity: {}
-appProtocol:
-  enabled: false
+args: []
 auth:
-  enabled: false
-  resolver:
-    allowDelete: false
-    interval: 2m
-    operator: null
-    store:
-      dir: /accounts/jwt
-      size: 1Gi
-    systemAccount: null
-    type: none
-bootconfig:
-  image: natsio/nats-boot-config:0.5.4
-  pullPolicy: IfNotPresent
-  securityContext: {}
+  enabled: true
+  noAuthUser: ""
+  password: ""
+  timeout: 1
+  token: ""
+  user: nats_client
+  usersCredentials: []
 cluster:
-  enabled: true
-  extraRoutes: []
-  noAdvertise: false
-  replicas: 3
+  auth:
+    enabled: true
+    password: ""
+    token: ""
+    user: nats_cluster
+  connectRetries: ""
+clusterDomain: cluster.local
+command: []
+commonAnnotations: {}
 commonLabels: {}
-exporter:
-  enabled: true
-  image: natsio/prometheus-nats-exporter:0.9.0
-  pullPolicy: IfNotPresent
-  resources: {}
-  securityContext: {}
-  serviceMonitor:
-    annotations: {}
-    enabled: false
-    labels: {}
-    path: /metrics
-gateway:
+configuration: >-
+  {{- $authPwd := default (include "nats.randomPassword" .)
+  .Values.auth.password -}}
+
+  {{- $clusterAuthPwd := default (include "nats.randomPassword" .)
+  .Values.cluster.auth.password -}}
+
+  listen: 0.0.0.0:{{ .Values.containerPorts.client }}
+
+  http: 0.0.0.0:{{ .Values.containerPorts.monitoring }}
+
+
+  # Authorization for client connections
+
+  {{- if .Values.auth.enabled }}
+
+  authorization {
+    {{- if .Values.auth.user }}
+    user: {{ .Values.auth.user | quote }}
+    password: {{ $authPwd | quote }}
+    {{- else if .Values.auth.token }}
+    token: {{ .Values.auth.token | quote }}
+    {{- else if .Values.auth.usersCredentials }}
+    users: [
+      {{- range $user := .Values.auth.usersCredentials }}
+        { user: {{ $user.username | quote }}, password: {{ $user.password | quote }} },
+      {{- end }}
+    ],
+    {{- end }}
+    timeout:  {{ int .Values.auth.timeout }}
+  }
+
+  {{- if .Values.auth.noAuthUser }}
+
+  no_auth_user: {{ .Values.auth.noAuthUser | quote }}
+
+  {{- end }}
+
+  {{- end }}
+
+
+  # Logging options
+
+  debug: {{ ternary "true" "false" (or .Values.debug.enabled
+  .Values.diagnosticMode.enabled) }}
+
+  trace: {{ ternary "true" "false" (or .Values.debug.trace
+  .Values.diagnosticMode.enabled) }}
+
+  logtime: {{ ternary "true" "false" (or .Values.debug.logtime
+  .Values.diagnosticMode.enabled) }}
+
+  # Pid file
+
+  pid_file: "/opt/bitnami/nats/tmp/{{ .Values.natsFilename }}.pid"
+
+
+  # Some system overrides
+
+  {{- if .Values.maxConnections }}
+
+  max_connections: {{ int .Values.maxConnections }}
+
+  {{- end }}
+
+  {{- if .Values.maxControlLine }}
+
+  max_control_line: {{ int .Values.maxControlLine }}
+
+  {{- end }}
+
+  {{- if .Values.maxPayload }}
+
+  max_payload: {{ int .Values.maxPayload }}
+
+  {{- end }}
+
+  {{- if .Values.writeDeadline }}
+
+  write_deadline: {{ .Values.writeDeadline | quote }}
+
+  {{- end }}
+
+
+  # Clustering definition
+
+  cluster {
+    listen: 0.0.0.0:{{ .Values.containerPorts.cluster }}
+    {{- if .Values.cluster.auth.enabled }}
+    # Authorization for cluster connections
+    authorization {
+      {{- if .Values.cluster.auth.user }}
+      user: {{ .Values.cluster.auth.user | quote }}
+      password: {{ $clusterAuthPwd | quote }}
+      {{- else if .Values.cluster.auth.token }}
+      token: {{ .Values.cluster.auth.token | quote }}
+      {{- end }}
+      timeout:  1
+    }
+    {{- end }}
+    # Routes are actively solicited and connected to from this server.
+    # Other servers can connect to us if they supply the correct credentials
+    # in their routes definitions from above
+    routes = [
+      {{- if .Values.cluster.auth.enabled }}
+      {{- if .Values.cluster.auth.user }}
+      nats://{{ .Values.cluster.auth.user }}:{{ $clusterAuthPwd }}@{{ include "common.names.fullname" . }}:{{ .Values.service.ports.cluster }}
+      {{- else if .Values.cluster.auth.token }}
+      nats://{{ .Values.cluster.auth.token }}@{{ template "common.names.fullname" . }}:{{ .Values.service.ports.cluster }}
+      {{- end }}
+      {{- else }}
+      nats://{{ template "common.names.fullname" . }}:{{ .Values.service.ports.cluster }}
+      {{- end }}
+    ]
+    {{- if .Values.cluster.connectRetries }}
+    # Configure number of connect retries for implicit routes
+    connect_retries: {{ .Values.cluster.connectRetries }}
+    {{- end }}
+  }
+containerPorts:
+  client: 4222
+  cluster: 6222
+  monitoring: 8222
+containerSecurityContext:
   enabled: false
-  name: default
-imagePullSecrets: []
-k8sClusterDomain: cluster.local
-leafnodes:
+  runAsNonRoot: true
+  runAsUser: 1001
+customLivenessProbe: {}
+customReadinessProbe: {}
+customStartupProbe: {}
+debug:
   enabled: false
-  noAdvertise: false
-mqtt:
-  ackWait: 1m
+  logtime: false
+  trace: false
+diagnosticMode:
+  args:
+    - infinity
+  command:
+    - sleep
   enabled: false
-  maxAckPending: 100
-nameOverride: ""
-nats:
-  advertise: true
-  connectRetries: 120
-  externalAccess: false
-  image: nats:2.6.5-alpine
-  jetstream:
-    domain: null
-    enabled: false
-    encryption: null
-    fileStorage:
-      accessModes:
-        - ReadWriteOnce
-      annotations: null
-      enabled: false
-      size: 1Gi
-      storageDirectory: /data
-    memStorage:
-      enabled: true
-      size: 1Gi
-  limits:
-    lameDuckDuration: 120s
-    maxConnections: null
-    maxControlLine: null
-    maxPayload: null
-    maxPending: null
-    maxPings: null
-    maxSubscriptions: null
-    pingInterval: null
-    writeDeadline: null
-  logging:
-    connectErrorReports: null
-    debug: null
-    logtime: null
-    reconnectErrorReports: null
-    trace: null
-  profiling:
-    enabled: false
-    port: 6000
-  pullPolicy: IfNotPresent
-  resources: {}
-  securityContext: {}
-  selectorLabels: {}
-  serverNamePrefix: ""
-  serviceAccount: nats-server
-  terminationGracePeriodSeconds: 120
-natsbox:
-  additionalLabels: {}
-  affinity: {}
-  enabled: true
-  image: natsio/nats-box:0.7.0
+existingSecret: ""
+extraDeploy: []
+extraEnvVars: []
+extraEnvVarsCM: ""
+extraEnvVarsSecret: ""
+extraVolumeMounts: []
+extraVolumes: []
+fullnameOverride: ""
+global:
   imagePullSecrets: []
-  nodeSelector: {}
-  podAnnotations: {}
-  podLabels: {}
+  imageRegistry: ""
+hostAliases: []
+image:
+  debug: false
   pullPolicy: IfNotPresent
-  securityContext: {}
-  tolerations: []
+  pullSecrets: []
+  registry: docker.io
+  repository: bitnami/nats
+  tag: 2.7.2-debian-10-r0
+ingress:
+  annotations: {}
+  apiVersion: ""
+  enabled: false
+  extraHosts: []
+  extraPaths: []
+  extraTls: []
+  hostname: nats.local
+  ingressClassName: ""
+  path: /
+  pathType: ImplementationSpecific
+  secrets: []
+  selfSigned: false
+  tls: false
+initContainers: []
+kubeVersion: ""
+lifecycleHooks: {}
+livenessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+maxConnections: ""
+maxControlLine: ""
+maxPayload: ""
+metrics:
+  containerPort: 7777
+  enabled: true
+  flags:
+    - "-connz"
+    - "-routez"
+    - "-subz"
+    - "-varz"
+  image:
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+    registry: docker.io
+    repository: bitnami/nats-exporter
+    tag: 0.9.1-debian-10-r13
+  resources: {}
+  service:
+    annotations:
+      prometheus.io/port: "{{ .Values.metrics.service.port }}"
+      prometheus.io/scrape: "true"
+    labels: {}
+    loadBalancerIP: ""
+    port: 7777
+    type: ClusterIP
+  serviceMonitor:
+    enabled: false
+    interval: ""
+    jobLabel: ""
+    labels: {}
+    metricRelabelings: []
+    namespace: monitoring
+    relabelings: []
+    scrapeTimeout: ""
+    selector: {}
+nameOverride: ""
+natsFilename: nats-server
 networkPolicy:
+  additionalRules: {}
   allowExternal: true
   enabled: false
-  extraEgress: []
-  extraIngress: []
-  ingressNSMatchLabels: {}
-  ingressNSPodMatchLabels: {}
+nodeAffinityPreset:
+  key: ""
+  type: ""
+  values: []
 nodeSelector: {}
+pdb:
+  create: false
+  maxUnavailable: ""
+  minAvailable: 1
+podAffinityPreset: ""
 podAnnotations: {}
-podDisruptionBudget: null
-priorityClassName: null
-reloader:
-  enabled: true
-  image: natsio/nats-server-config-reloader:0.6.2
-  pullPolicy: IfNotPresent
-  securityContext: {}
-securityContext: {}
-serviceAnnotations: {}
-statefulSetAnnotations: {}
-statefulSetPodLabels: {}
-tolerations: []
-topologyKeys: []
-topologySpreadConstraints: []
-websocket:
-  allowedOrigins: []
+podAntiAffinityPreset: soft
+podLabels: {}
+podSecurityContext:
   enabled: false
-  noTLS: true
-  port: 443
-  sameOrigin: false
+  fsGroup: 1001
+priorityClassName: ""
+readinessProbe:
+  enabled: true
+  failureThreshold: 6
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+replicaCount: 3
+resourceType: statefulset
+resources:
+  limits: {}
+  requests: {}
+schedulerName: ""
+service:
+  annotations: {}
+  clusterIP: ""
+  externalTrafficPolicy: Cluster
+  extraPorts: []
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  nodePorts:
+    client: ""
+    cluster: ""
+    monitoring: ""
+  ports:
+    client: 4222
+    cluster: 6222
+    monitoring: 8222
+  sessionAffinity: None
+  type: ClusterIP
+sidecars: []
+startupProbe:
+  enabled: false
+  failureThreshold: 6
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+tolerations: []
+topologySpreadConstraints: []
+updateStrategy:
+  type: RollingUpdate
+writeDeadline: ""
