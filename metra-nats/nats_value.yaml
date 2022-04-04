@@ -2,19 +2,19 @@ affinity: {}
 args: []
 auth:
   enabled: true
-  noAuthUser: ""
-  password: ""
+  noAuthUser: ''
+  password: ''
   timeout: 1
-  token: ""
+  token: ''
   user: nats_client
   usersCredentials: []
 cluster:
   auth:
     enabled: true
-    password: ""
-    token: ""
+    password: ''
+    token: ''
     user: nats_cluster
-  connectRetries: ""
+  connectRetries: ''
 clusterDomain: cluster.local
 command: []
 commonAnnotations: {}
@@ -159,17 +159,17 @@ diagnosticMode:
   command:
     - sleep
   enabled: false
-existingSecret: ""
+existingSecret: ''
 extraDeploy: []
 extraEnvVars: []
-extraEnvVarsCM: ""
-extraEnvVarsSecret: ""
+extraEnvVarsCM: ''
+extraEnvVarsSecret: ''
 extraVolumeMounts: []
 extraVolumes: []
-fullnameOverride: ""
+fullnameOverride: ''
 global:
   imagePullSecrets: []
-  imageRegistry: ""
+  imageRegistry: ''
 hostAliases: []
 image:
   debug: false
@@ -177,23 +177,23 @@ image:
   pullSecrets: []
   registry: docker.io
   repository: bitnami/nats
-  tag: 2.7.2-debian-10-r0
+  tag: 2.7.4-debian-10-r0
 ingress:
   annotations: {}
-  apiVersion: ""
+  apiVersion: ''
   enabled: false
   extraHosts: []
   extraPaths: []
   extraTls: []
   hostname: nats.local
-  ingressClassName: ""
+  ingressClassName: ''
   path: /
   pathType: ImplementationSpecific
   secrets: []
   selfSigned: false
   tls: false
 initContainers: []
-kubeVersion: ""
+kubeVersion: ''
 lifecycleHooks: {}
 livenessProbe:
   enabled: true
@@ -202,65 +202,65 @@ livenessProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 5
-maxConnections: ""
-maxControlLine: ""
-maxPayload: ""
+maxConnections: ''
+maxControlLine: ''
+maxPayload: ''
 metrics:
   containerPort: 7777
   enabled: true
   flags:
-    - "-connz"
-    - "-routez"
-    - "-subz"
-    - "-varz"
+    - '-connz'
+    - '-routez'
+    - '-subz'
+    - '-varz'
   image:
     pullPolicy: IfNotPresent
     pullSecrets: []
     registry: docker.io
     repository: bitnami/nats-exporter
-    tag: 0.9.1-debian-10-r13
+    tag: 0.9.1-debian-10-r45
   resources: {}
   service:
     annotations:
-      prometheus.io/port: "{{ .Values.metrics.service.port }}"
-      prometheus.io/scrape: "true"
+      prometheus.io/port: '{{ .Values.metrics.service.port }}'
+      prometheus.io/scrape: 'true'
     labels: {}
-    loadBalancerIP: ""
+    loadBalancerIP: ''
     port: 7777
     type: ClusterIP
   serviceMonitor:
     enabled: false
-    interval: ""
-    jobLabel: ""
+    interval: ''
+    jobLabel: ''
     labels: {}
     metricRelabelings: []
     namespace: monitoring
     relabelings: []
-    scrapeTimeout: ""
+    scrapeTimeout: ''
     selector: {}
-nameOverride: ""
+nameOverride: ''
 natsFilename: nats-server
 networkPolicy:
   additionalRules: {}
   allowExternal: true
   enabled: false
 nodeAffinityPreset:
-  key: ""
-  type: ""
+  key: ''
+  type: ''
   values: []
 nodeSelector: {}
 pdb:
   create: false
-  maxUnavailable: ""
+  maxUnavailable: ''
   minAvailable: 1
-podAffinityPreset: ""
+podAffinityPreset: ''
 podAnnotations: {}
 podAntiAffinityPreset: soft
 podLabels: {}
 podSecurityContext:
   enabled: false
   fsGroup: 1001
-priorityClassName: ""
+priorityClassName: ''
 readinessProbe:
   enabled: true
   failureThreshold: 6
@@ -273,18 +273,18 @@ resourceType: statefulset
 resources:
   limits: {}
   requests: {}
-schedulerName: ""
+schedulerName: ''
 service:
   annotations: {}
-  clusterIP: ""
+  clusterIP: ''
   externalTrafficPolicy: Cluster
   extraPorts: []
-  loadBalancerIP: ""
+  loadBalancerIP: ''
   loadBalancerSourceRanges: []
   nodePorts:
-    client: ""
-    cluster: ""
-    monitoring: ""
+    client: ''
+    cluster: ''
+    monitoring: ''
   ports:
     client: 4222
     cluster: 6222
@@ -303,4 +303,4 @@ tolerations: []
 topologySpreadConstraints: []
 updateStrategy:
   type: RollingUpdate
-writeDeadline: ""
+writeDeadline: ''

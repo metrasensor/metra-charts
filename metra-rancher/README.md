@@ -63,3 +63,9 @@ sudo docker run -d --volumes-from rancher-data-262 \
 
 - [Подробная инструкция по Backup and Restore Docker Volumes](https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes)
 - [Подробная инструкция по Backup and Restore Rancher](https://rancher.com/docs/rancher/v2.5/en/backups/)
+
+
+```bash
+# Привязка селектора к наймспасй
+scheduler.alpha.kubernetes.io/node-selector: space=metra
+```
