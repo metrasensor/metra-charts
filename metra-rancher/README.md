@@ -67,5 +67,5 @@ sudo docker run -d --volumes-from rancher-data-262 \
 
 ```bash
 # Привязка селектора к наймспасй
-scheduler.alpha.kubernetes.io/node-selector: space=metra
+scheduler.alpha.kubernetes.io/node-selector: metracluster.io/role=aiops
 ```
