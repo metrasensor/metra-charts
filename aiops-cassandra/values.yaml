@@ -16,12 +16,12 @@ fullnameOverride: ""
 
 configmap:
   DEBUG_MODE: false
-  CASSANDRA_CLUSTER: metra-cassandra
+  CASSANDRA_CLUSTER: cassandra-db
   KEYSPACE_NAME: aiops
+  CASSANDRA_USER: cassandra
+  CASSANDRA_PASSWORD: cassandra
   UDP_SERVER_IP: 0.0.0.0
   UDP_SERVER_PORT: 8094
-  HTTP_SERVER_IP: 0.0.0.0
-  HTTP_SERVER_PORT: 8095
   NATS_SERVERS: nats://metra-nats:4222
   RECEIVED_DATA_TTL: 864000
   TRIGGERED_ALERT_TTL: 864000
@@ -32,3 +32,7 @@ configmap:
   SUBJECT_ALERTS_NAME: alerts
   SUBJECT_PREDICTOR_NAME: predictor
   SUBJECT_WEBHOOKS_NAME: webhooks
+  ALERTS_DSN: https://5acd5c797b304b90a71288c349e5941d@o1087060.ingest.sentry.io/6324976
+  PREDICTOR_DSN: https://abd6d5846adf47538b7b1c0deaababe0@o1087060.ingest.sentry.io/6328393
+  RECEIVER_DSN: https://8c7d1e73ec7f4651933c288c95887b69@o1087060.ingest.sentry.io/6328397
+  WEBHOOKS_DSN: https://29a1604f937c4daf85a3b9beb73de55e@o1087060.ingest.sentry.io/6328402
