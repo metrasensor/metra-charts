@@ -21,7 +21,5 @@ entries:
     sources:
     - https://github.com/metrasensor/metra-aiops
     type: application
-    urls:
-    - raw.githubusercontent.com/metrasensor/metra-charts/master/charts/aiops-cassandra-1.0.0.tgz
     version: 1.0.0
 generated: "2022-04-21T17:16:20.4614964+03:00"
