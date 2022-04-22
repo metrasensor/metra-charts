@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   aiops-cassandra:
   - apiVersion: v2
-    created: "2022-04-22T16:57:15.2840097+03:00"
+    created: "2022-04-22T17:20:04.4886454+03:00"
     description: Helm chart for Cassandra aiops migration
-    digest: 228b721c0bd481eed57784321dc2acb809a5dcd8eccdf4b009d67eb704f828a6
+    digest: 076a23e046edcbec8de18bb198392fd5b0624f6535234acb40b9582dcf68a0ea
     icon: https://metrasensor.github.io/metra-charts/metra_logo.png
     keywords:
     - aiops
@@ -24,4 +24,4 @@ entries:
     urls:
     - https://metrasensor.github.io/metra-charts/aiops-cassandra-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-22T16:57:15.2833301+03:00"
+generated: "2022-04-22T17:20:04.4875336+03:00"
