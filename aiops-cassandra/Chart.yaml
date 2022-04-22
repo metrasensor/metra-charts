@@ -2,7 +2,7 @@ apiVersion: v2
 name: aiops-cassandra
 description: Helm chart for Cassandra aiops migration
 type: application
-version: 1.0.1
+version: 1.0.0
 icon: https://metrasensor.github.io/metra-charts/metra_logo.png
 
 keywords:
