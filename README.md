@@ -6,7 +6,7 @@
 
 ```bash
 helm repo add metra-registry \
-'https://$GH_SECRET@raw.githubusercontent.com/metrasensor/metra-charts/master/charts'
+'https://metrasensor.github.io/metra-charts/'
 ```
 
 ## Создание чарта
@@ -19,6 +19,6 @@ helm create $CHART_NAME
 
 ```bash
 $ helm package metra-app
-$ mv metra-app-0.1.0.tgz charts
-$ helm repo index charts/ --url raw.githubusercontent.com/metrasensor/metra-charts/master/charts --merge index.yaml
+$ mv metra-app-0.1.0.tgz docs
+$ helm repo index docs/ --url https://metrasensor.github.io/metra-charts/ --merge index.yaml
 ```
