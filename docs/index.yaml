@@ -1,8 +1,29 @@
 apiVersion: v1
 entries:
+  aiops-alerts:
+  - apiVersion: v2
+    created: "2022-04-25T17:55:36.716066+03:00"
+    description: Helm chart for aiops-alerts
+    digest: 5ab76263a307e8ed3c7037f88f3be15223f33abe77f58e77a8835404b57e4cd5
+    icon: https://raw.githubusercontent.com/metrasensor/metra-charts/master/charts/metra_logo.png
+    keywords:
+    - aiops
+    - alerts
+    - aiops-alerts
+    - metra-aiops-alerts
+    maintainers:
+    - email: gorschal@gmail.com
+      name: Gorshal Igor
+    name: aiops-alerts
+    sources:
+    - https://github.com/metrasensor/metra-aiops
+    type: application
+    urls:
+    - https://metrasensor.github.io/metra-charts/aiops-alerts-1.0.0.tgz
+    version: 1.0.0
   aiops-cassandra:
   - apiVersion: v2
-    created: "2022-04-22T17:52:36.6317464+03:00"
+    created: "2022-04-25T17:55:36.7189069+03:00"
     description: Helm chart for Cassandra aiops migration
     digest: 8453653e2893e857d2b5f4b3ac4339f74947bb04b35c4ad01133e2028681555e
     icon: https://metrasensor.github.io/metra-charts/metra_logo.png
@@ -24,4 +45,4 @@ entries:
     urls:
     - https://metrasensor.github.io/metra-charts/aiops-cassandra-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-22T17:52:36.6302408+03:00"
+generated: "2022-04-25T17:55:36.7155475+03:00"

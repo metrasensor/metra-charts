@@ -6,9 +6,7 @@ metadata:
   labels:
     {{- include "aiops-alerts.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "aiops-alerts.selectorLabels" . | nindent 6 }}
